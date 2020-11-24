@@ -5,8 +5,25 @@
     - docker
 
   tasks:
+
+    - name: Create directory docker
+      file:
+        path: /data/docker
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Copy docker-compose file to docker directory
+      template:
+        src: docker-compose.yml
+        dest: /data/docker
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Run docker-compose up
       shell: docker-compose up -d
       args:
-        chdir: /var/lib/jenkins/
+        chdir: /data/docker
 
