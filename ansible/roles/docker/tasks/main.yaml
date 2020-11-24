@@ -29,9 +29,9 @@
     mode: 'u+x,g+x'  
   become: yes
 
-- name: Move bin file
-  shell: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-  become: yes      
+#- name: Move bin file
+#  shell: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+#  become: yes      
 
 - name: Enable docker
   shell: |
