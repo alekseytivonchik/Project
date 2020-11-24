@@ -1,0 +1,21 @@
+  ---
+  tasks:
+    - name: Create directory for backup cms files
+      file:
+        path: /data/docker/backup/cms_files
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create directory for backup db files
+      file:
+        path: /data/docker/backup/db
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Sync files
+      shell: rsync -avH /data/docker/cmsfiles/ /data/docker/backup/cms_files/
+      shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
