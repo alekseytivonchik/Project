@@ -16,7 +16,7 @@ pipeline{
     }
     stage('Docker deploy'){
       steps{
-        ansiblePlaybook credentialsId: 'node1_root_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts.yaml', playbook: 'play.yaml'
+        ansiblePlaybook credentialsId: 'node1_root_key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'ansible/hosts.yaml', playbook: 'ansible/play.yaml'
       }
     }
   }
