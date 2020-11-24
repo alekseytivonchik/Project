@@ -16,7 +16,7 @@
 
     - name: Copy docker-compose file to docker directory
       template:
-        src: docker-compose.yml
+        src: ./docker-compose.yml
         dest: /data/docker
         owner: root
         group: root
