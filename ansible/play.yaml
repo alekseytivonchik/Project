@@ -31,7 +31,7 @@
         mode: 0755
 
     - name: Copy docker-compose file to docker directory
-       copy:
+      copy:
         src: /var/lib/jenkins/workspace/first_deploy/docker-compose.yaml
         dest: /data/docker
         owner: root
