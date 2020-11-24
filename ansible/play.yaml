@@ -16,7 +16,7 @@
 
     - name: Create directory for database
       file:
-        path: /data/db
+        path: /data/docker/db
         state: directory
         owner: root
         group: root
@@ -24,7 +24,7 @@
 
     - name: Create directory for webApp
       file:
-        path: /data/cmsfiles
+        path: /data/docker/cmsfiles
         state: directory
         owner: root
         group: root
@@ -42,21 +42,3 @@
       shell: docker-compose up -d
       args:
         chdir: /data/docker
-
-    - name: Enabled firewalld
-      systemd:
-        name: firewalld
-        state: started
-        enabled: yes
-
-    - name: Add rules to firewalld
-      firewalld:
-        zone: public
-        service: "{{ item }}"
-        state: enabled
-        permanent: yes
-        immediate: yes
-      with_items:
-        - http
-        - https
-        - ssh
