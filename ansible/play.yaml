@@ -1,22 +1,12 @@
 ---
 - hosts: node1
   become: true
+  roles:
+    - docker
+
   tasks:
-    - name: Install python PIP
-      yum:
-        name: python-pip
-        state: present
+    - name: Run docker-compose up
+      shell: docker-compose up -d
+      args:
+        chdir: /var/lib/jenkins/
 
-    - name: Install docker-py python module
-      pip:
-        name: docker-py
-        state: present
-        
-    - name: Pull container
-      docker_container:
-        community.general.docker_compose:
-          project_src: docker-compose.yaml
-      register: output
-
-    - ansible.builtin.debug:
-        var: output
