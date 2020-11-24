@@ -14,16 +14,49 @@
         group: root
         mode: 0755
 
+    - name: Create directory for database
+      file:
+        path: /data/db
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create directory for webApp
+      file:
+        path: /data/cmsfiles
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
     - name: Copy docker-compose file to docker directory
-      copy:
+       copy:
         src: /var/lib/jenkins/workspace/first_deploy/docker-compose.yaml
         dest: /data/docker
         owner: root
         group: root
         mode: 0644
 
-    - name: Run docker-compose up
+    - name: Run docker-compose
       shell: docker-compose up -d
       args:
         chdir: /data/docker
 
+    - name: Enabled firewalld
+      systemd:
+        name: firewalld
+        state: started
+        enabled: yes
+
+    - name: Add rules to firewalld
+      firewalld:
+        zone: public
+        service: "{{ item }}"
+        state: enabled
+        permanent: yes
+        immediate: yes
+      with_items:
+        - http
+        - https
+        - ssh

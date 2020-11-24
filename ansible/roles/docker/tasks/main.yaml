@@ -33,7 +33,7 @@
 #  shell: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 #  become: yes      
 
-- name: Enable docker
+- name: Enable docker and add user to docker group
   shell: |
     usermod -aG docker $USER
     chown $USER /var/run/docker.sock
