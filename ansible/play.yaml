@@ -10,3 +10,7 @@
       pip:
         name: docker-py
         state: present
+    - name: Pull container
+      docker_container:
+        docker_compose:
+          project_src: docker-compose.yaml
