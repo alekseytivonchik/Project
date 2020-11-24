@@ -6,11 +6,17 @@
       yum:
         name: python-pip
         state: present
+
     - name: Install docker-py python module
       pip:
         name: docker-py
         state: present
+        
     - name: Pull container
       docker_container:
-        docker_compose:
+        community.general.docker_compose:
           project_src: docker-compose.yaml
+      register: output
+
+    - ansible.builtin.debug:
+        var: output
