@@ -10,6 +10,7 @@
 #### Orchestration: Jenkins
 #### Automation tools: Ansible
 #### SCM: GitHub
+#### Other: Docker, Mysql, WordPress
 ---
 #### Pipeline. High Level Design
 ```
