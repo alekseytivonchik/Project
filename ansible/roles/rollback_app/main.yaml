@@ -4,11 +4,8 @@
   args:
     chdir: /var/lib/jenkins
 
-- name: Remove project's files which updated
-  shell: rm -rf /data/docker/cmsfiles/*
-
 - name: Syncing files from backup
-  shell: rsync -avH /data/docker/backup/cms_files /data/docker/cmsfiles/
+  shell: rsync -avH --delete /data/docker/backup/cms_files /data/docker/cmsfiles/
 
 - name: Run previous docker-compose file
   shell: docker-compose -f docker-compose.yaml up -d
