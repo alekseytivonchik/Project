@@ -1,0 +1,32 @@
+---
+- name: Stop and remove container
+  shell: docker-compose -f docker-compose_update.yaml down
+  args:
+    chdir: /var/lib/jenkins
+
+- name: Remove project's files which updated
+  shell: rm -rf /data/docker/cmsfiles/*
+
+- name: Syncing files from backup
+  shell: rsync -avH /data/docker/backup/cms_files /data/docker/cmsfiles/
+
+- name: Run previous docker-compose file
+  shell: docker-compose -f docker-compose.yaml up -d
+  args:
+    chdir: /var/lib/jenkins/
+
+- name: Pause for runing app
+  pause:
+    seconds: 40
+
+- name: Curl and check output
+  block:
+    - name: Curl content
+      uri:
+        url: "http://192.168.100.11:8080"
+        return_content: yes
+      register: content
+      failed_when: "'WordPress' not in content.content"
+    - name: Print content
+      debug:
+        msg: "{{ content }}"
