@@ -20,16 +20,13 @@
   shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
 
 - name: Stop docker
-  shell: docker stop WordPress
+  shell: docker-compose down wordpress
   args:
     chdir: /data/docker
 
-- name: Remove stop containers
-  shell: docker rm WordPress
-
 - name: Copy docker-compose file to docker directory
   copy:
-    src: /var/lib/jenkins/workspace/first_deploy/docker-compose.yaml
+    src: /var/lib/jenkins/workspace/first_deploy/docker-compose_update.yaml
     dest: /data/docker
     owner: root
     group: root
