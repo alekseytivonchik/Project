@@ -56,6 +56,7 @@
     - name: Print content
       debug:
         msg: "{{ content }}"
+  rescue:
     - name: backup app
       include_role:
         name: rollback_app
