@@ -4,6 +4,9 @@
   args:
     chdir: /var/lib/jenkins
 
+- name: remove image
+  shell: docker rmi wordpress:php7.4-apache
+
 - name: Syncing files from backup
   shell: rsync -avH --delete /data/docker/backup/cms_files /data/docker/cmsfiles/
 
