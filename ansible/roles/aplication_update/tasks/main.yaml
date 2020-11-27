@@ -20,9 +20,12 @@
   shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
 
 - name: Stop docker
-  shell: docker-compose down wordpress
+  shell: docker stop WordPress
   args:
     chdir: /data/docker
+
+- name: Remove docker
+  shell: docker rm WordPress
 
 - name: Copy docker-compose file to docker directory
   copy:
