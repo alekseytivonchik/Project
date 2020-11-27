@@ -57,6 +57,15 @@
       debug:
         msg: "{{ content }}"
   rescue:
+    - name: Send notification message via Slack
+      slack:
+        token: T01AU9RFDBP/B01FP8WGJQ2/3NfVRiyNla1OsdVpRKa51jlZ
+        channel: '#project'
+        username: 'Ansible sender'
+        msg: 'Update app: failed'
+        icon_url: https://agardner.net/wp-content/uploads/2018/08/ansible-logo.png
+        parse: 'full'
+
     - name: rollback_app
       include_role:
         name: rollback_app
