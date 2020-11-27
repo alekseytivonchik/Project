@@ -1,58 +1,57 @@
 ---
-  tasks:
-    - name: Create directory for backup cms files
-      file:
-        path: /data/docker/backup/cms_files
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
+- name: Create directory for backup cms files
+  file:
+  path: /data/docker/backup/cms_files
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
-    - name: Create directory for backup db files
-      file:
-        path: /data/docker/backup/db
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
+- name: Create directory for backup db files
+  file:
+    path: /data/docker/backup/db
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
 
-    - name: Sync files
-      shell: rsync -avH /data/docker/cmsfiles/ /data/docker/backup/cms_files/
-      shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
+- name: Sync files
+  shell: rsync -avH /data/docker/cmsfiles/ /data/docker/backup/cms_files/
+  shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
 
-    - name: Stop docker
-      shell: docker-compose stop WordPress
-      args:
-        chdir: /data/docker
+- name: Stop docker
+  shell: docker-compose stop WordPress
+  args:
+    chdir: /data/docker
 
-    - name: Remove stop containers
-      shell: docker rm WordPress
+- name: Remove stop containers
+  shell: docker rm WordPress
 
-    - name: Copy docker-compose file to docker directory
-      copy:
-        src: /var/lib/jenkins/workspace/first_deploy/docker-compose.yaml
-        dest: /data/docker
-        owner: root
-        group: root
-        mode: 0644
+- name: Copy docker-compose file to docker directory
+  copy:
+    src: /var/lib/jenkins/workspace/first_deploy/docker-compose.yaml
+    dest: /data/docker
+    owner: root
+    group: root
+    mode: 0644
 
-    - name: Run docker-compose up
-      shell: docker-compose -f docker-compose_update.yaml up -d
-      args:
-        chdir: /data/docker
+- name: Run docker-compose up
+  shell: docker-compose -f docker-compose_update.yaml up -d
+  args:
+    chdir: /data/docker
 
-    - name: Pause for runing app
-      pause:
-        seconds: 40
+- name: Pause for runing app
+  pause:
+    seconds: 40
 
-    - name: Curl and check output
-      block:
-        - name: Curl content
-          uri:
-            url: "http://192.168.100.11:8080"
-            return_content: yes
-          register: content
-          failed_when: "'hello-world' not in content.content"
-        - name: Print content
-          debug:
-            msg: "{{ content }}"
+- name: Curl and check output
+block:
+  - name: Curl content
+    uri:
+      url: "http://192.168.100.11:8080"
+      return_content: yes
+    register: content
+    failed_when: "'hello-world' not in content.content"
+  - name: Print content
+    debug:
+      msg: "{{ content }}"
