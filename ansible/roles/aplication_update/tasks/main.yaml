@@ -57,6 +57,6 @@
       debug:
         msg: "{{ content }}"
   rescue:
-    - name: backup app
+    - name: rollback_app
       include_role:
         name: rollback_app
