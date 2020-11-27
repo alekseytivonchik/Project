@@ -1,7 +1,7 @@
 ---
 - name: Create directory for backup cms files
   file:
-  path: /data/docker/backup/cms_files
+    path: /data/docker/backup/cms_files
     state: directory
     owner: root
     group: root
