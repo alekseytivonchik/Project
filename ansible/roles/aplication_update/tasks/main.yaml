@@ -20,7 +20,7 @@
   shell: rsync -avH /data/docker/db/ /data/docker/backup/db/
 
 - name: Stop docker
-  shell: docker-compose stop WordPress
+  shell: docker stop WordPress
   args:
     chdir: /data/docker
 
