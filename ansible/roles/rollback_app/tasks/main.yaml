@@ -2,7 +2,7 @@
 - name: Stop and remove container
   shell: docker-compose -f docker-compose_update.yaml down
   args:
-    chdir: /var/lib/jenkins
+    chdir: /data/docker
 
 - name: remove image
   shell: docker rmi wordpress:php7.4-apache
@@ -13,7 +13,7 @@
 - name: Run previous docker-compose file
   shell: docker-compose -f docker-compose.yaml up -d
   args:
-    chdir: /var/lib/jenkins/
+    chdir: /data/docker
 
 - name: Pause for runing app
   pause:
