@@ -16,7 +16,9 @@
     mode: 0755
 
 - name: Sync files
-  shell: rsync -avH /data/docker/cmsfiles/ /data/docker/backup/cms_files/
+  shell: | 
+    rsync -avH /data/docker/cmsfiles/ /data/docker/backup/cms_files/
+    rsync -avH /data/docker/db/ /data/docker/backup/db/
 
 - name: Stop docker
   shell: docker stop WordPress
@@ -57,4 +59,4 @@
 
 - name: Rollback to previous version app
   include_role:
-    name: rollback
+    name: rollback_app
