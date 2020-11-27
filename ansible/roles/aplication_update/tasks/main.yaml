@@ -29,7 +29,7 @@
 
 - name: Copy docker-compose file to docker directory
   copy:
-    src: /var/lib/jenkins/workspace/first_deploy/docker-compose_update.yaml
+    src: /var/lib/jenkins/workspace/update_application/docker-compose_update.yaml
     dest: /data/docker
     owner: root
     group: root
